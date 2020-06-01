@@ -13,6 +13,7 @@ const REDISURL = process.env.REDIS_URL
 const REDISPASSWORD = process.env.REDIS_PASSWORD
 const REDISPORT = process.env.REDIS_PORT
 
+// WEll this is to test
 
 // Passing environment variables to the app
 app.set("LISTNAME", LISTNAME)
