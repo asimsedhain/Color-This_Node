@@ -91,23 +91,23 @@ describe("API Tests", () => {
 
 
 		// Testing all the sample image ids after adding the values
-		// describe("# Get all the images after it is in the dictionary", () => {
-		// 	before("Loading finished list data", () => {
-		// 		app.get("finishedList").flushall()
-		// 		sampleIDs.forEach(async (value) => { await app.get("finishedList").set(value, "true") })
+		describe("# Get all the images after it is in the dictionary", () => {
+			before("Loading finished list data", () => {
+				app.get("finishedList").flushall()
+				sampleIDs.forEach(async (value) => { await app.get("finishedList").set(value, "true") })
 
-		// 	})
-		// 	for (let id of sampleIDs) {
-		// 		for (let type of ["original", "color"]) {
-		// 			it(`should get ${type} sample image with id: ${id}`, async () => {
-		// 				const res = await request(app).get(`/upload/${type}?id=${id}`)
-		// 				expect(res.statusCode).to.equal(200)
-		// 				expect(res.headers["content-type"]).to.eql("image/jpeg")
-		// 				expect(res.body).to.be.an("Uint8Array")
-		// 			})
-		// 		}
-		// 	}
-		// })
+			})
+			for (let id of sampleIDs) {
+				for (let type of ["original", "color"]) {
+					it(`should get ${type} sample image with id: ${id}`, async () => {
+						const res = await request(app).get(`/upload/${type}?id=${id}`)
+						expect(res.statusCode).to.equal(200)
+						expect(res.headers["content-type"]).to.eql("image/jpeg")
+						expect(res.body).to.be.an("Uint8Array")
+					})
+				}
+			}
+		})
 
 
 
@@ -129,7 +129,7 @@ describe("API Tests", () => {
 	describe("# Post", () => {
 
 		// Testing image uploads
-		for (let imagePath of ["./build/sample_image_0.jpg", "../screen_shot.jpg", "../system_architecture.jpg"]) {
+		for (let imagePath of ["sample_image_0.jpg", "sample_image_1.jpg", "sample_image_2.jpg"]) {
 			it("should upload the image and return a imageId", async () => {
 				const res = await request(app).post("/upload").attach("Original", path.resolve(imagePath))
 				expect(res.statusCode).to.equal(200)
