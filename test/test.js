@@ -129,7 +129,7 @@ describe("API Tests", () => {
 	describe("# Post", () => {
 
 		// Testing image uploads
-		for (let imagePath of ["sample_image_0.jpg", "sample_image_1.jpg", "sample_image_2.jpg"]) {
+		for (let imagePath of ["./sample_image_0.jpg", "./sample_image_1.jpg", "./sample_image_2.jpg"]) {
 			it("should upload the image and return a imageId", async () => {
 				const res = await request(app).post("/upload").attach("Original", path.resolve(imagePath))
 				expect(res.statusCode).to.equal(200)
