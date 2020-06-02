@@ -27,17 +27,14 @@ const upload = multer({
 
 
 
-// serving the static contents
-app.use(express.static("build"));
-
 
 
 // Handling the first endpoint
 // This will return the homepage
 app.get("/", (req, res) => {
 	res.statusCode = 200;
-	res.setHeader("Content-Type", "text/html");
-	res.sendFile(path.join("build", "index.html"));
+	res.contentType("application/json");
+	res.send(JSON.stringify({"Status": "Working"}))
 });
 
 
@@ -74,17 +71,17 @@ app.post('/upload', upload, async (req, res) => {
 // Sends the requested image of the type and id
 app.get("/upload/:type", async (req, res) => {
 	try {
-		
-			if ((await app.get("finishedList").get(req.query.id)) || req.query.skipDictionary){
-	
+
+		if ((await app.get("finishedList").get(req.query.id)) || req.query.skipDictionary) {
+
 			let cursor = await app.get("db").collection(app.get("COLLECTION")).find({ "_id": objectId(req.query.id) }).limit(1);
 			let doc = await cursor.next();
 			res.status(200)
 			res.contentType("jpeg")
 			res.end(doc[req.params.type.toLocaleLowerCase()].buffer, "binary")
-			}else{
-				throw "Image still being processed"
-			}
+		} else {
+			throw "Image still being processed"
+		}
 
 
 
