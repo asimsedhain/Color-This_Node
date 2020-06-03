@@ -92,9 +92,6 @@ app.get("/upload/:type", async (req, res) => {
 
 	}
 
-	if (!req.query.skipDictionary) {
-
-	}
 })
 
 
