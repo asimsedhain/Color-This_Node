@@ -26,7 +26,7 @@ jobs:
           
     env:
       working-directory: ./app
-      DBURI: ${{ secrets.DB_URI }}
+      DB_URI: ${{ secrets.DB_URI }}
     strategy:
       matrix:
         node-version: [12.x]
