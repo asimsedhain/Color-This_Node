@@ -23,7 +23,7 @@ const upload = multer({
 // Uploads the picture to the queue
 // Uploads the metadata to the database
 // Sends the id back to the client 
-router.post('/upload', upload, async (req, res) => {
+router.post('/', upload, async (req, res) => {
 	if (!req.file) {
 		res.status(404).contentType("application/json").send(JSON.stringify({ "Image": null }));
 	} else {
@@ -49,7 +49,7 @@ router.post('/upload', upload, async (req, res) => {
 // Needs to have a id query param
 // type: original | color
 // Sends the requested image of the type and id
-router.get("/upload/:type", async (req, res) => {
+router.get("/:type", async (req, res) => {
 	try {
 
 		if ((await app.get("finishedList").get(req.query.id)) || req.query.skipDictionary) {
