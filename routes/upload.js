@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const objectId = require("mongodb").ObjectID;
 const path = require("path");
+const fetch = require("node-fetch");
 
 const storage = multer.memoryStorage()
 
@@ -23,9 +24,10 @@ const upload = multer({
 // Uploads the picture to the queue
 // Uploads the metadata to the database
 // Sends the id back to the client 
-router.post('/', upload, async (req, res) => {
-	if (!req.file) {
-		res.status(404).contentType("application/json").send(JSON.stringify({ "Image": null }));
+router.post('/', async (req, res) => {
+	upload(req, res, (error)=>{
+	if (error) {
+		res.status(404).contentType("application/json").send(JSON.stringify({ error }));
 	} else {
 
 		req.file.fieldname = `${Date.now()}${path.extname(req.file.originalname)}`
@@ -42,6 +44,7 @@ router.post('/', upload, async (req, res) => {
 		res.contentType("application/json");
 		res.send(JSON.stringify({ "imageId": image._id }));
 	}
+})
 });
 
 
@@ -74,6 +77,20 @@ router.get("/:type", async (req, res) => {
 
 })
 
+router.post("/url", async (req, res) => {
+	try {
+		data = await (await fetch(req.body.url)).blob()
+		// image = { _id: objectId(), fieldname: req.file.fieldname, originalname: req.file.originalname, encoding: req.file.encoding, mimetype: req.file.mimetype, size: req.file.size, original: req.file.buffer }
+		
+
+
+	} catch (e) {
+
+	}
+})
+
+
+
 // Check File Type
 // Middleware helper function
 function checkFileType(file, cb) {
@@ -87,7 +104,7 @@ function checkFileType(file, cb) {
 	if (mimetype && extname) {
 		return cb(null, true);
 	} else {
-		cb('Error: Images Only!');
+		cb('Error: jpeg/jpg/png only allowed!');
 	}
 }
 

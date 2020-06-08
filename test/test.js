@@ -4,15 +4,16 @@ const request = require("supertest")
 const redis = require("async-redis")
 const MongoClient = require('mongodb').MongoClient
 const path = require("path")
+const dotenv = require("dotenv").config()
 
 
 describe("API Tests", () => {
 
 	// Env Varibales
-	const COLLECTION = process.env.collection || "images"
-	const DBURI = process.env.DBURI
-	const DBNAME = process.env.dbname || "Color"
-	const LISTNAME = process.env.list_name || "processing"
+	const COLLECTION = process.env.DB_COLLECTION || "images"
+	const DBURI = process.env.DB_URI
+	const DBNAME = process.env.DB_NAME || "Color"
+	const LISTNAME = process.env.LIST_NAME || "processing"
 
 
 
@@ -40,9 +41,10 @@ describe("API Tests", () => {
 
 		// connecting to the redis finishedList and attaching it to the app
 		// finishedList = redis.createClient({ host: "finishedList", port: 6379 })
-		finishedList = redis.createClient({port:5000})
-		app.set("finishedList", finishedList)
-		await finishedList.flushall()
+		// finishedList = redis.createClient({port:5000})
+		// app.set("finishedList", finishedList)
+		await redisPublisher.flushall()
+		app.set("finishedList", redisPublisher)
 
 		// Connecting to the database
 		// Database needs to be connected to get the data
@@ -145,7 +147,7 @@ describe("API Tests", () => {
 	after("Closing Connections", () => {
 		dbClient.close()
 		redisPublisher.quit()
-		finishedList.quit()
+		// finishedList.quit()
 	})
 
 
