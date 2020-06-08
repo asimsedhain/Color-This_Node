@@ -1,7 +1,6 @@
 const express = require("express")
 const router = express.Router();
 const multer = require("multer");
-const app = require("../app");
 
 
 const storage = multer.memoryStorage()
@@ -33,7 +32,7 @@ router.post('/', upload, async (req, res) => {
 		image = { _id: objectId(), fieldname: req.file.fieldname, originalname: req.file.originalname, encoding: req.file.encoding, mimetype: req.file.mimetype, size: req.file.size, original: req.file.buffer }
 
 		// Inserting the file to the queue
-		app.get("redis").lpush(app.get("LISTNAME"), JSON.stringify(image));
+		req.app.get("redis").lpush(req.app.get("LISTNAME"), JSON.stringify(image));
 
 		// Logging
 		console.log(`${new Date().toLocaleString()}: File inserted in queue with id: ${image._id}`);
@@ -52,9 +51,9 @@ router.post('/', upload, async (req, res) => {
 router.get("/:type", async (req, res) => {
 	try {
 
-		if ((await app.get("finishedList").get(req.query.id)) || req.query.skipDictionary) {
+		if ((await req.app.get("finishedList").get(req.query.id)) || req.query.skipDictionary) {
 
-			let cursor = await app.get("db").collection(app.get("COLLECTION")).find({ "_id": objectId(req.query.id) }).limit(1);
+			let cursor = await req.app.get("db").collection(req.app.get("COLLECTION")).find({ "_id": objectId(req.query.id) }).limit(1);
 			let doc = await cursor.next();
 			res.status(200)
 			res.contentType("jpeg")
