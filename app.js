@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const cookie = require("cookie-parser");
-const objectId = require("mongodb").ObjectID;
 const cors = require("cors");
 
 // Creating the express, mongoclient and also the port from environment varible
