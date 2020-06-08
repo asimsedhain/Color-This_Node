@@ -25,26 +25,30 @@ const upload = multer({
 // Uploads the metadata to the database
 // Sends the id back to the client 
 router.post('/', async (req, res) => {
-	upload(req, res, (error)=>{
-	if (error) {
-		res.status(404).contentType("application/json").send(JSON.stringify({ error }));
-	} else {
+	upload(req, res, (error) => {
+		try {
+			if (error) throw error
+			req.file.fieldname = `${Date.now()}${path.extname(req.file.originalname)}`
 
-		req.file.fieldname = `${Date.now()}${path.extname(req.file.originalname)}`
+			image = { _id: objectId(), fieldname: req.file.fieldname, originalname: req.file.originalname, encoding: req.file.encoding, mimetype: req.file.mimetype, size: req.file.size, original: req.file.buffer }
+			// Inserting the file to the queue
+			req.app.get("redis").lpush(req.app.get("LISTNAME"), JSON.stringify(image));
 
-		image = { _id: objectId(), fieldname: req.file.fieldname, originalname: req.file.originalname, encoding: req.file.encoding, mimetype: req.file.mimetype, size: req.file.size, original: req.file.buffer }
+			// Logging
+			console.log(`${new Date().toLocaleString()}: File inserted in queue with id: ${image._id}`);
 
-		// Inserting the file to the queue
-		req.app.get("redis").lpush(req.app.get("LISTNAME"), JSON.stringify(image));
+			// Sending the id back to the client
+			res.contentType("application/json");
+			res.send(JSON.stringify({ "imageId": image._id }));
+		} catch (error) {
+			console.log(`${new Date().toLocaleString()}: ${error}`)
 
-		// Logging
-		console.log(`${new Date().toLocaleString()}: File inserted in queue with id: ${image._id}`);
+			res.status(404).contentType("application/json").send(JSON.stringify({ error: `${error}` }));
 
-		// Sending the id back to the client
-		res.contentType("application/json");
-		res.send(JSON.stringify({ "imageId": image._id }));
-	}
-})
+
+		}
+	})
+
 });
 
 
@@ -80,12 +84,26 @@ router.get("/:type", async (req, res) => {
 router.post("/url", async (req, res) => {
 	try {
 		data = await (await fetch(req.body.url)).blob()
-		// image = { _id: objectId(), fieldname: req.file.fieldname, originalname: req.file.originalname, encoding: req.file.encoding, mimetype: req.file.mimetype, size: req.file.size, original: req.file.buffer }
-		
+		const filetype = /jpeg|jpg|png/.test(data.type.toLocaleLowerCase());
+
+		if (!filetype) throw 'Only jpeg/jpg/png allowed!'
+		buffer = await data.arrayBuffer()
+
+		image = { _id: objectId(), mimetype: data.type, size: buffer.size, original: Buffer.from(buffer) }
+
+		// Inserting the file to the queue
+		req.app.get("redis").lpush(req.app.get("LISTNAME"), JSON.stringify(image));
 
 
-	} catch (e) {
+		// Logging
+		console.log(`${new Date().toLocaleString()}: File inserted in queue with id: ${image._id}`);
 
+		// Sending the id back to the client
+		res.contentType("application/json");
+		res.send(JSON.stringify({ "imageId": image._id }));
+	} catch (error) {
+		console.log(`${new Date().toLocaleString()}: ${error}`)
+		res.status(404).contentType("application/json").send(JSON.stringify({ error: `${error}` }));
 	}
 })
 
@@ -104,7 +122,7 @@ function checkFileType(file, cb) {
 	if (mimetype && extname) {
 		return cb(null, true);
 	} else {
-		cb('Error: jpeg/jpg/png only allowed!');
+		cb('Only jpeg/jpg/png allowed!');
 	}
 }
 

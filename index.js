@@ -2,6 +2,7 @@
 const app = require("./app")
 const redis = require("async-redis")
 const MongoClient = require('mongodb').MongoClient
+const dotenv = require("dotenv").config()
 
 // Getting the envirionment varibles
 const PORT = process.env.PORT
@@ -21,7 +22,8 @@ app.set("COLLECTION", COLLECTION)
 
 
 // connecting to the redis server and attaching it to the app
-const redisPublisher = redis.createClient({ host: REDISURL, port: REDISPORT, password: REDISPASSWORD })
+// const redisPublisher = redis.createClient({ host: REDISURL, port: REDISPORT, password: REDISPASSWORD })
+const redisPublisher= redis.createClient()
 app.set("redis", redisPublisher)
 
 // connecting to the redis finishedList and attaching it to the app
