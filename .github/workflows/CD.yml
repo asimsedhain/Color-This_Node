@@ -25,12 +25,9 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t ${{ secrets.REGISTRY_USERNAME }}/colorthis:${{ github.sha }}
-        docker push ${{ secrets.REGISTRY_USERNAME }}/colorthis:${{ github.sha }}
-      
-    - uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'colorthis'
-        images: '${{ secrets.REGISTRY_USERNAME }}/colorthis:${{ github.sha }}'
-    - run: |
+        docker build . -t ${{ secrets.REGISTRY_USERNAME }}/colorthis_node:${{ github.sha }}
+        docker push ${{ secrets.REGISTRY_USERNAME }}/colorthis_node:${{ github.sha }}
+ 
+    - name: Pushing to Azure
+      run: |
         az webapp config container set --resource-group Color-This --name colorthis --multicontainer-config-type compose --multicontainer-config-file docker-compose.yaml
