@@ -25,8 +25,8 @@ jobs:
         password: ${{ secrets.REGISTRY_PASSWORD }}
     
     - run: |
-        docker build . -t ${{ secrets.REGISTRY_USERNAME }}/colorthis_node:${{ github.sha }}
-        docker push ${{ secrets.REGISTRY_USERNAME }}/colorthis_node:${{ github.sha }}
+        docker build . -t ${{ secrets.REGISTRY_USERNAME }}/colorthis_node
+        docker push ${{ secrets.REGISTRY_USERNAME }}/colorthis_node
  
     - name: Pushing to Azure
       run: |
