@@ -1,0 +1,24 @@
+version: "3.1"
+services:
+    redis:
+        image: redis:latest
+    # finishedList:
+    #     image: redis:latest
+    front_end:
+        image: asedhain/colorthis_node 
+        ports:
+            - 80:80
+        environment:
+            - PORT=${PORT}
+            - DB_URI=${DB_URI}
+            - DB_NAME=${DB_NAME}
+            - DB_COLLECTION=${DB_COLLECTION} 
+            - LIST_NAME=${LIST_NAME}
+
+    worker:
+        image: asedhain/colorthis_worker
+        environment:
+            - DB_URI=${DB_URI}
+            - DB_NAME=${DB_NAME}
+            - DB_COLLECTION=${DB_COLLECTION} 
+            - LIST_NAME=${LIST_NAME}

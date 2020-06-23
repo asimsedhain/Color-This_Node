@@ -23,7 +23,7 @@ app.use("/upload", uploadRoute)
 app.get("/", (req, res) => {
 	res.statusCode = 200;
 	res.contentType("application/json");
-	res.send(JSON.stringify({"Status": "Working"}))
+	res.send(JSON.stringify({"Status": "Testing Compose"}))
 });
 
 

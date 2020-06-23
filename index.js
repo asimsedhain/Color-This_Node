@@ -23,7 +23,7 @@ app.set("COLLECTION", COLLECTION)
 
 // connecting to the redis server and attaching it to the app
 // const redisPublisher = redis.createClient({ host: REDISURL, port: REDISPORT, password: REDISPASSWORD })
-const redisPublisher= redis.createClient()
+const redisPublisher= redis.createClient({host: "redis", port: 6379})
 app.set("redis", redisPublisher)
 
 // connecting to the redis finishedList and attaching it to the app
