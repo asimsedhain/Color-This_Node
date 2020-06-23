@@ -32,5 +32,5 @@ jobs:
       with:
         app-name: 'colorthis'
         images: '${{ secrets.REGISTRY_USERNAME }}/colorthis:${{ github.sha }}'
-    run: |
+    - run: |
         az webapp config container set --resource-group Color-This --name colorthis --multicontainer-config-type compose --multicontainer-config-file docker-compose.yaml
