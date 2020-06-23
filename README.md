@@ -2,23 +2,28 @@
 	<h1 align="center">
 		Color This
 	</h1>
-	<p align="center"
-	Web Application for Image Colorization using Deep Generative Adversarial Networks.
+	<p align="center">
+		Web Application for Image Colorization using Deep Generative Adversarial Networks.
 	</p>
 	<p align="center">
-	This repo contains the frontend.
 	</p>
 	<p align="center">
-		<a href="https://github.com/asimsedhain/Color-This/graphs/commit-activity">
+	<a href="https://github.com/asimsedhain/Color-This/graphs/commit-activity">
 			<img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
 		</a>
-		<a href="https://colorthis.z13.web.core.windows.net/">
-			<img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg" />
-		</a>
-		<a href="/">
-			<img src="https://img.shields.io/github/license/Naereen/StrapDown.js.svg" />
-		</a>
-			<img src="https://github.com/asimsedhain/Color-This/workflows/Continious%20Integration/badge.svg?event=push" />
+	<div align="center">
+	<p><b>Front-End<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>| <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   Node Server   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  |   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  Python Worker</b></p>
+	<p>	<a href="https://colorthis.netlify.app/">
+                <img align="center" src="https://api.netlify.com/api/v1/badges/88ea1855-a15e-48ea-9bf5-1fa50ffa4608/deploy-status" />
+        	</a>
+			<b>|</b>
+				<img src="https://github.com/asimsedhain/Color-This_Node/workflows/CI/badge.svg">
+				<img src="https://github.com/asimsedhain/Color-This_Node/workflows/CD/badge.svg">
+			<b>|</b>
+				<img src="https://github.com/asimsedhain/Color-This_PythonWorker/workflows/CI/badge.svg">
+				<img src="https://github.com/asimsedhain/Color-This_PythonWorker/workflows/CD/badge.svg">
+			<p>
+	</div>
 	</p>
 	<p align="center">
 	<kbd>
@@ -30,9 +35,9 @@
 
 
 
-## [Demo](https://colorthis.z13.web.core.windows.net/)
+## [Demo](https://colorthis.netlify.app/)
 
-The site is hosted [here](https://colorthis.z13.web.core.windows.net/).
+The site is hosted [here](https://colorthis.netlify.app/).
 
 ## [Model](https://github.com/asimsedhain/Image-Colorization-GAN)
 
