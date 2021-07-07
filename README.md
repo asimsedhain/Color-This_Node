@@ -9,7 +9,7 @@
 	</p>
 	<p align="center">
 	<a href="https://github.com/asimsedhain/Color-This/graphs/commit-activity">
-			<img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
+			<img src="https://img.shields.io/badge/Maintained%3F-no-red.svg" />
 		</a>
 	<div align="center">
 	<p><b>Front-End<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>| <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   Node Server   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  |   <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>  Python Worker</b></p>
